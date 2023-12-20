@@ -15,6 +15,8 @@ public class PlateTrackedImages : MonoBehaviour
     // Keep dictionary array of created pefabs
     private readonly Dictionary<string, GameObject> _instantiatedPrefabs = new Dictionary<string, GameObject>();
 
+    private CreateDBScript createDBScript;
+
     void Awake()
     {
         // Cahe a reference to the tracked Image manage component
@@ -53,6 +55,7 @@ public class PlateTrackedImages : MonoBehaviour
                     var newPrefab = Instantiate(curPrefab, trackedImage.transform);
                     // Add the created prefab to our array
                     _instantiatedPrefabs[imageName] = newPrefab;
+                    createDBScript.completedExeperiment(CreateDBScript.EXEPERIMENT_2);
                 }
             }
         }
@@ -77,14 +80,14 @@ public class PlateTrackedImages : MonoBehaviour
         }
     }
 
-    /*
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        createDBScript = (CreateDBScript)FindObjectOfType(typeof(CreateDBScript));
     }
 
+    /*
     // Update is called once per frame
     void Update()
     {
