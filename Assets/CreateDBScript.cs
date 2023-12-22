@@ -48,6 +48,13 @@ public class CreateDBScript : MonoBehaviour
         yield return null;
     }
 
+    private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    private static long ConvertToTimestamp(DateTime value)
+    {
+        TimeSpan elapsedTime = value - Epoch;
+        return (long)elapsedTime.TotalSeconds;
+    }
+
     private IEnumerator InsertUserPerformance(UserExperiment userExperiment, bool experiment_done, bool isInserted)
     {
         Debug.Log("InsertUserPerformance");
@@ -67,7 +74,7 @@ public class CreateDBScript : MonoBehaviour
 
             DateTime dataHoraAtual = DateTime.Now;
 
-            long timestamp = dataHoraAtual.Ticks;
+            long timestamp = ConvertToTimestamp(dataHoraAtual);
 
             Debug.Log("insert into ARVRexper");
 
@@ -82,9 +89,6 @@ public class CreateDBScript : MonoBehaviour
         
 
         yield return CopyDatabase(userExperiment);
-
-        //yield return ExportDatabase(userExperiment);
-
 
     }
 
